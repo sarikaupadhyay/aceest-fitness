@@ -79,7 +79,7 @@ jobs:
 
       - name: Run Pytest inside Docker container
         run: |
-          docker run --rm aceest-fitness:test pytest test_app.py -v --tb=short
+          docker run --rm aceest-fitness:test pytest aceest-fitness/test_app.py -v --tb=short
 
       - name: Upload test results on failure
         if: failure()
