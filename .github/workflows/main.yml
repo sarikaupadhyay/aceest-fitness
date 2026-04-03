@@ -18,10 +18,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python 3.11
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
@@ -35,12 +35,10 @@ jobs:
           python -m py_compile app.py
           echo "Syntax check passed"
 
-      - name: Lint - check code style with flake8
+      - name: Lint - check for critical errors only
         run: |
           pip install flake8
-          # Stop build if there are syntax errors or undefined names
-          # E501 = line too long (ignored for readability)
-          flake8 app.py --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 app.py --count --select=E9,F63,F7,F82 --show-source --statistics --max-line-length=200
 
   # ────────────────────────────────────────────
   # JOB 2: Docker Image Build
@@ -52,7 +50,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build Docker image
         run: |
@@ -72,7 +70,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build Docker image for testing
         run: docker build -t aceest-fitness:test .
@@ -84,9 +82,9 @@ jobs:
             aceest-fitness:test \
             pytest test_app.py -v --tb=short
 
-      - name: Upload test results (on failure)
+      - name: Upload test results on failure
         if: failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: "*.log"
