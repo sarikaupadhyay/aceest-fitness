@@ -32,7 +32,7 @@ jobs:
 
       - name: Lint - check syntax with py_compile
         run: |
-          python -m py_compile app.py
+          python -m py_compile aceest-fitness/app.py
           echo "Syntax check passed"
 
       - name: Lint - check for critical errors only
