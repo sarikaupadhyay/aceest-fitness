@@ -53,12 +53,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Docker image
+        working-directory: aceest-fitness
         run: |
           docker build -t aceest-fitness:latest .
           echo "Docker image built successfully"
 
       - name: Verify Docker image exists
-        run: docker images aceest-fitness
+        run:  docker images aceest-fitness
 
   # ────────────────────────────────────────────
   # JOB 3: Automated Testing inside Docker
