@@ -38,7 +38,7 @@ jobs:
       - name: Lint - check for critical errors only
         run: |
           pip install flake8
-          flake8 app.py --count --select=E9,F63,F7,F82 --show-source --statistics --max-line-length=200
+          flake8 aceest-fitness/app.py --count --select=E9,F63,F7,F82 --show-source --statistics --max-line-length=200
 
   # ────────────────────────────────────────────
   # JOB 2: Docker Image Build
@@ -80,7 +80,7 @@ jobs:
           docker run --rm \
             -v ${{ github.workspace }}:/app \
             aceest-fitness:test \
-            pytest test_app.py -v --tb=short
+            pytest aceest-fitness/test_app.py -v --tb=short
 
       - name: Upload test results on failure
         if: failure()
