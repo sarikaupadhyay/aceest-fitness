@@ -1,0 +1,41 @@
+# Stable (90% of traffic — 9 replicas)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aceest-stable
+spec:
+  replicas: 9
+  selector:
+    matchLabels:
+      app: aceest-fitness
+  template:
+    metadata:
+      labels:
+        app: aceest-fitness
+    spec:
+      containers:
+      - name: aceest
+        image: sarikaupadhyay/aceest-fitness:v3.1
+        ports:
+        - containerPort: 5000
+---
+# Canary (10% of traffic — 1 replica)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aceest-canary
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aceest-fitness
+  template:
+    metadata:
+      labels:
+        app: aceest-fitness
+    spec:
+      containers:
+      - name: aceest
+        image: sarikaupadhyay/aceest-fitness:v3.2
+        ports:
+        - containerPort: 5000

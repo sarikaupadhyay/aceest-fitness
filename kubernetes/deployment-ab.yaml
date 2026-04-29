@@ -1,0 +1,45 @@
+# Version A — control
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aceest-version-a
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: aceest-fitness
+      track: version-a
+  template:
+    metadata:
+      labels:
+        app: aceest-fitness
+        track: version-a
+    spec:
+      containers:
+      - name: aceest
+        image: sarikaupadhyay/aceest-fitness:v3.1
+        ports:
+        - containerPort: 5000
+---
+# Version B — experimental
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aceest-version-b
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: aceest-fitness
+      track: version-b
+  template:
+    metadata:
+      labels:
+        app: aceest-fitness
+        track: version-b
+    spec:
+      containers:
+      - name: aceest
+        image: sarikaupadhyay/aceest-fitness:v3.2
+        ports:
+        - containerPort: 5000
